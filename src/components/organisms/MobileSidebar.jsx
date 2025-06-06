@@ -68,26 +68,7 @@ const navigationItems = [
               </Link>
             ))}
           </div>
-        </div>
-
-        {/* Search */}
-        <div className="p-4 border-b border-surface-200 dark:border-surface-700">
-          <div className="relative">
-            <Icon 
-              name="Search" 
-              size={16} 
-              className="absolute left-3 top-1/2 transform -translate-y-1/2 text-surface-400" 
-            />
-            <Input
-              type="text"
-              placeholder={currentPage === 'clients' ? 'Search clients...' : 'Search tasks...'}
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 w-full"
-            />
-          </div>
 </div>
-
         {/* Project Filter - only show on tasks page */}
         {currentPage !== 'clients' && (
           <div className="flex-1 overflow-y-auto p-4">
