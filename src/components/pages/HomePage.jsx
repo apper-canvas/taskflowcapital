@@ -1,19 +1,18 @@
-import { useState, useEffect } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import React, { useState, useEffect } from 'react'
 import { toast } from 'react-toastify'
-import { isToday, isPast, format } from 'date-fns'
-import taskService from '@/services/api/taskService'
-import projectService from '@/services/api/projectService'
-
+import { format, isPast, isToday } from 'date-fns'
+import { motion, AnimatePresence } from 'framer-motion'
 import MainHeader from '@/components/organisms/MainHeader'
 import Sidebar from '@/components/organisms/Sidebar'
 import MobileSidebar from '@/components/organisms/MobileSidebar'
 import QuickAddBar from '@/components/organisms/QuickAddBar'
 import TaskDetailModal from '@/components/organisms/TaskDetailModal'
+import ProjectDetailModal from '@/components/organisms/ProjectDetailModal'
 import TimerWidget from '@/components/organisms/TimerWidget'
 import ListTemplate from '@/components/templates/ListTemplate'
 import CalendarTemplate from '@/components/templates/CalendarTemplate'
-
+import taskService from '@/services/taskService'
+import projectService from '@/services/projectService'
 export default function HomePage() {
   const [darkMode, setDarkMode] = useState(false)
   const [tasks, setTasks] = useState([])
@@ -22,14 +21,19 @@ export default function HomePage() {
   const [error, setError] = useState(null)
   const [view, setView] = useState('list') // 'list' or 'calendar'
   const [selectedProject, setSelectedProject] = useState('all')
-  const [searchQuery, setSearchQuery] = useState('')
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
-
-  const [showQuickAdd, setShowQuickAdd] = useState(false)
-  const [showTaskModal, setShowTaskModal] = useState(false)
-  const [selectedTask, setSelectedTask] = useState(null)
+  const [viewMode, setViewMode] = useState('list')
+  const [selectedDate, setSelectedDate] = useState(new Date())
   const [currentCalendarDate, setCurrentCalendarDate] = useState(new Date())
-
+  const [showTaskModal, setShowTaskModal] = useState(false)
+  const [showProjectModal, setShowProjectModal] = useState(false)
+  const [selectedTask, setSelectedTask] = useState(null)
+  const [selectedProjectData, setSelectedProjectData] = useState(null)
+  const [showQuickAdd, setShowQuickAdd] = useState(false)
+  const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
+  const [searchTerm, setSearchTerm] = useState('')
+  const [searchQuery, setSearchQuery] = useState('')
+  const [selectedProjectId, setSelectedProjectId] = useState('')
   const [quickAddData, setQuickAddData] = useState({
     title: '',
     projectId: '',
@@ -86,7 +90,7 @@ export default function HomePage() {
     }
   }
 
-  const filteredTasks = tasks?.filter(task => {
+const filteredTasks = tasks?.filter(task => {
     const matchesProject = selectedProject === 'all' || task.projectId === selectedProject
     const matchesSearch = !searchQuery ||
       task.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -125,7 +129,7 @@ export default function HomePage() {
     }
   }
 
-  const urgentTasks = filteredTasks?.filter(task =>
+const urgentTasks = filteredTasks?.filter(task =>
     isPast(new Date(task.dueDate)) && task.status !== 'complete'
   ) || []
 
@@ -133,8 +137,7 @@ export default function HomePage() {
     isToday(new Date(task.dueDate))
   ) || []
 
-  const handleQuickAdd = async (e) => {
-    e.preventDefault()
+  const handleQuickAdd = async () => {
     if (!quickAddData.title.trim()) return
 
     try {
@@ -156,7 +159,47 @@ export default function HomePage() {
     }
   }
 
-  const handleCreateTask = async (e) => {
+  const openTaskModal = (task = null) => {
+    if (task) {
+      setSelectedTask(task)
+      setNewTaskData({
+        title: task.title || '',
+        description: task.description || '',
+        projectId: task.projectId || '',
+        priority: task.priority || 'medium',
+        status: task.status || 'todo',
+        dueDate: task.dueDate || format(new Date(), 'yyyy-MM-dd')
+      })
+    } else {
+      setSelectedTask(null)
+      setNewTaskData({
+        title: '',
+        description: '',
+        projectId: '',
+        priority: 'medium',
+        status: 'todo',
+        dueDate: format(new Date(), 'yyyy-MM-dd')
+      })
+    }
+    setShowTaskModal(true)
+  }
+
+  const closeTaskModal = () => {
+    setShowTaskModal(false)
+    setSelectedTask(null)
+  }
+
+  const openProjectModal = (project = null) => {
+    setSelectedProjectData(project)
+    setShowProjectModal(true)
+  }
+
+  const closeProjectModal = () => {
+    setShowProjectModal(false)
+    setSelectedProjectData(null)
+  }
+
+const handleCreateTask = async (e) => {
     e.preventDefault()
     if (!newTaskData.title.trim()) return
 
@@ -184,6 +227,63 @@ export default function HomePage() {
     }
   }
 
+const handleSaveProject = async (projectData) => {
+    try {
+      setLoading(true)
+      let savedProject
+      
+      if (selectedProjectData) {
+        savedProject = await projectService.update(selectedProjectData.id, projectData)
+        setProjects(prev => prev.map(p => p.id === selectedProjectData.id ? savedProject : p))
+        toast.success('Project updated successfully!')
+      } else {
+        savedProject = await projectService.create(projectData)
+        setProjects(prev => [...prev, savedProject])
+        toast.success('Project created successfully!')
+      }
+      
+      closeProjectModal()
+    } catch (error) {
+      console.error('Error saving project:', error)
+      toast.error('Failed to save project')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleSaveTask = async (taskData) => {
+    try {
+      let savedTask
+      
+      if (selectedTask) {
+        savedTask = await taskService.update(selectedTask.id, taskData)
+        setTasks(prev => prev.map(t => t.id === selectedTask.id ? savedTask : t))
+        toast.success('Task updated successfully!')
+      } else {
+        savedTask = await taskService.create(taskData)
+        setTasks(prev => [...prev, savedTask])
+        toast.success('Task created successfully!')
+      }
+      
+      closeTaskModal()
+    } catch (error) {
+      console.error('Error saving task:', error)
+      toast.error('Failed to save task')
+    }
+  }
+
+const handleDeleteTask = async (id) => {
+    if (window.confirm('Are you sure you want to delete this task?')) {
+      try {
+        await taskService.delete(id)
+        setTasks(prev => prev.filter(task => task.id !== id))
+        toast.success('Task deleted successfully')
+      } catch (err) {
+        toast.error('Failed to delete task')
+      }
+    }
+  }
+
   const handleUpdateTask = async (e) => {
     e.preventDefault()
     if (!selectedTask || !newTaskData.title.trim()) return
@@ -199,44 +299,7 @@ export default function HomePage() {
     }
   }
 
-  const handleDeleteTask = async (taskId) => {
-    try {
-      await taskService.delete(taskId)
-      setTasks(prev => prev?.filter(task => task.id !== taskId) || [])
-      setShowTaskModal(false)
-      setSelectedTask(null)
-      toast.success('Task deleted successfully')
-    } catch (err) {
-      toast.error('Failed to delete task')
-    }
-  }
-
-  const openTaskModal = (task = null) => {
-    if (task) {
-      setSelectedTask(task)
-      setNewTaskData({
-        title: task.title || '',
-        description: task.description || '',
-        projectId: task.projectId || '',
-        priority: task.priority || 'medium',
-        status: task.status || 'todo',
-        dueDate: task.dueDate || ''
-      })
-    } else {
-      setSelectedTask(null)
-      setNewTaskData({
-        title: '',
-        description: '',
-        projectId: '',
-        priority: 'medium',
-        status: 'todo',
-        dueDate: format(new Date(), 'yyyy-MM-dd')
-      })
-    }
-    setShowTaskModal(true)
-  }
-
-  if (loading) {
+if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
@@ -257,6 +320,7 @@ export default function HomePage() {
       <div className="flex h-[calc(100vh-4rem)]">
         <Sidebar
           sidebarCollapsed={sidebarCollapsed}
+          setSidebarCollapsed={setSidebarCollapsed}
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
           urgentTasks={urgentTasks}
@@ -293,6 +357,7 @@ export default function HomePage() {
             projects={projects}
             handleQuickAdd={handleQuickAdd}
             openTaskModal={openTaskModal}
+            openProjectModal={openProjectModal}
           />
 
           <div className="flex-1 overflow-y-auto">
@@ -329,17 +394,21 @@ export default function HomePage() {
       </div>
 
       <TimerWidget />
-
+{/* Task Detail Modal */}
       <TaskDetailModal
-        showModal={showTaskModal}
-        setShowModal={setShowTaskModal}
-        selectedTask={selectedTask}
-        newTaskData={newTaskData}
-        setNewTaskData={setNewTaskData}
+        isOpen={showTaskModal}
+        onClose={closeTaskModal}
+        task={selectedTask}
         projects={projects}
-        handleCreate={handleCreateTask}
-        handleUpdate={handleUpdateTask}
-        handleDelete={handleDeleteTask}
+        onSave={handleSaveTask}
+      />
+
+      {/* Project Detail Modal */}
+      <ProjectDetailModal
+        isOpen={showProjectModal}
+        onClose={closeProjectModal}
+        project={selectedProjectData}
+        onSave={handleSaveProject}
       />
     </div>
   )

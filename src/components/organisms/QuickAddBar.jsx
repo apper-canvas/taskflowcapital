@@ -12,7 +12,8 @@ export default function QuickAddBar({
   setQuickAddData,
   projects,
   handleQuickAdd,
-  openTaskModal
+  openTaskModal,
+  openProjectModal
 }) {
   return (
     <div className="bg-white dark:bg-surface-800 border-b border-surface-200 dark:border-surface-700 p-4">
@@ -33,14 +34,23 @@ export default function QuickAddBar({
             >
               <Icon name="Plus" size={16} />
               <Text as="span">Quick add task...</Text>
-            </Button>
-            <Button
-              onClick={() => openTaskModal()}
-              className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark"
-            >
-              <Icon name="Plus" size={16} />
-              <Text as="span" className="hidden sm:inline">New Task</Text>
-            </Button>
+</Button>
+            <div className="flex items-center gap-2">
+              <Button
+                onClick={() => openProjectModal()}
+                className="flex items-center gap-2 px-4 py-2 bg-secondary text-white rounded-lg hover:bg-secondary-dark"
+              >
+                <Icon name="FolderPlus" size={16} />
+                <Text as="span" className="hidden sm:inline">New Project</Text>
+              </Button>
+              <Button
+                onClick={() => openTaskModal()}
+                className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark"
+              >
+                <Icon name="Plus" size={16} />
+                <Text as="span" className="hidden sm:inline">New Task</Text>
+              </Button>
+            </div>
           </div>
         )}
       </AnimatePresence>
