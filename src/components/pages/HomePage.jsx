@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react'
 import { toast } from 'react-toastify'
 import { format, isPast, isToday } from 'date-fns'
 import { motion, AnimatePresence } from 'framer-motion'
+import Icon from '@/components/atoms/Icon'
+import Text from '@/components/atoms/Text'
 import MainHeader from '@/components/organisms/MainHeader'
 import QuickAddBar from '@/components/organisms/QuickAddBar'
 import TaskDetailModal from '@/components/organisms/TaskDetailModal'
 import ProjectDetailModal from '@/components/organisms/ProjectDetailModal'
 import TimerWidget from '@/components/organisms/TimerWidget'
+import ProjectFilter from '@/components/organisms/ProjectFilter'
 import ListTemplate from '@/components/templates/ListTemplate'
 import CalendarTemplate from '@/components/templates/CalendarTemplate'
 import { taskService, projectService } from '@/services'
@@ -24,8 +27,9 @@ const [view, setView] = useState('list') // 'list' or 'calendar'
   const [showProjectModal, setShowProjectModal] = useState(false)
   const [selectedTask, setSelectedTask] = useState(null)
 const [selectedProjectData, setSelectedProjectData] = useState(null)
-  const [showQuickAdd, setShowQuickAdd] = useState(false)
+const [showQuickAdd, setShowQuickAdd] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
+  const [selectedProjects, setSelectedProjects] = useState(['all'])
   const [quickAddData, setQuickAddData] = useState({
     title: '',
     projectId: '',
@@ -48,7 +52,31 @@ const [selectedProjectData, setSelectedProjectData] = useState(null)
     if (isDark) {
       document.documentElement.classList.add('dark')
     }
+}, [])
+
+  // Load project filter from localStorage
+  useEffect(() => {
+    try {
+      const savedFilter = localStorage.getItem('taskProjectFilter')
+      if (savedFilter) {
+        const parsed = JSON.parse(savedFilter)
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          setSelectedProjects(parsed)
+        }
+      }
+    } catch (error) {
+      console.error('Error loading project filter:', error)
+    }
   }, [])
+
+  // Save project filter to localStorage
+  useEffect(() => {
+    try {
+      localStorage.setItem('taskProjectFilter', JSON.stringify(selectedProjects))
+    } catch (error) {
+      console.error('Error saving project filter:', error)
+    }
+  }, [selectedProjects])
 
   useEffect(() => {
     loadData()
@@ -86,7 +114,11 @@ const filteredTasks = tasks?.filter(task => {
     const matchesSearch = !searchQuery ||
       task.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       task.description?.toLowerCase().includes(searchQuery.toLowerCase())
-    return matchesSearch
+    
+    const matchesProject = selectedProjects.includes('all') || 
+      selectedProjects.includes(task.projectId)
+    
+    return matchesSearch && matchesProject
   }) || []
 
   const getProjectById = (id) => projects?.find(p => p.id === id) || { name: 'Unknown Project', color: '#6b7280' }
@@ -320,41 +352,76 @@ return (
             openTaskModal={openTaskModal}
             openProjectModal={openProjectModal}
           />
+/>
 
           <div className="flex-1 overflow-y-auto">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={view}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.2 }}
-              >
-                {view === 'list' ? (
-                  <ListTemplate
-                    tasks={filteredTasks}
-                    onTaskClick={openTaskModal}
-                    onToggleComplete={handleTaskUpdate}
-                    getProjectById={getProjectById}
-                    getPriorityColor={getPriorityColor}
-                    getStatusColor={getStatusColor}
-                  />
-                ) : (
-                  <CalendarTemplate
-                    tasks={filteredTasks}
-                    currentDate={currentCalendarDate}
-                    setCurrentDate={setCurrentCalendarDate}
-                    onTaskClick={openTaskModal}
-                    getProjectById={getProjectById}
-                  />
-                )}
-              </motion.div>
-            </AnimatePresence>
-          </div>
+            {/* Project Filter */}
+            <div className="px-4 lg:px-6 pt-6">
+              <ProjectFilter
+                projects={projects}
+                tasks={tasks}
+                selectedProject={selectedProjects.includes('all') ? 'all' : selectedProjects[0]}
+                setSelectedProject={(projectId) => {
+                  setSelectedProjects(projectId === 'all' ? ['all'] : [projectId])
+                }}
+                variant="dropdown"
+              />
+            </div>
+
+            <div className="px-4 lg:px-6">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={`${view}-${selectedProjects.join(',')}`}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {filteredTasks.length === 0 && !loading ? (
+                    <div className="text-center py-12">
+                      <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-surface-100 dark:bg-surface-800 flex items-center justify-center">
+                        <Icon name="FolderOpen" size={24} className="text-surface-400 dark:text-surface-500" />
+                      </div>
+                      <Text className="text-lg font-medium text-surface-900 dark:text-white mb-2">
+                        {selectedProjects.includes('all') ? 'No tasks found' : 'No tasks in selected projects'}
+                      </Text>
+                      <Text className="text-surface-500 dark:text-surface-400">
+                        {selectedProjects.includes('all') 
+                          ? searchQuery 
+                            ? 'Try adjusting your search terms'
+                            : 'Create your first task to get started'
+                          : 'Try selecting different projects or create new tasks'
+                        }
+                      </Text>
+                    </div>
+                  ) : (
+                    <>
+{view === 'list' ? (
+                        <ListTemplate
+                          tasks={filteredTasks}
+                          onTaskClick={openTaskModal}
+                          onToggleComplete={handleTaskUpdate}
+                          getProjectById={getProjectById}
+                          getPriorityColor={getPriorityColor}
+                          getStatusColor={getStatusColor}
+                        />
+                      ) : (
+                        <CalendarTemplate
+                          tasks={filteredTasks}
+                          currentDate={currentCalendarDate}
+                          setCurrentDate={setCurrentCalendarDate}
+                          onTaskClick={openTaskModal}
+                          getProjectById={getProjectById}
+                        />
+                      )}
+                    </>
+                  )}
+                </motion.div>
+              </AnimatePresence>
+            </div>
+</div>
         </main>
       </div>
-
-      <TimerWidget />
 {/* Task Detail Modal */}
       <TaskDetailModal
         isOpen={showTaskModal}
