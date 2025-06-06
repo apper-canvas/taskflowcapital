@@ -1,0 +1,72 @@
+[
+  {
+    "id": "1",
+    "name": "TechStart Mobile App",
+    "clientName": "TechStart Inc",
+    "color": "#6366f1",
+    "isActive": true
+  },
+  {
+    "id": "2",
+    "name": "Marketing Campaign",
+    "clientName": "Digital Solutions Co",
+    "color": "#ec4899",
+    "isActive": true
+  },
+  {
+    "id": "3",
+    "name": "API Development",
+    "clientName": "CloudTech Systems",
+    "color": "#10b981",
+    "isActive": true
+  },
+  {
+    "id": "4",
+    "name": "E-commerce Platform",
+    "clientName": "Retail Innovations",
+    "color": "#f59e0b",
+    "isActive": true
+  },
+  {
+    "id": "5",
+    "name": "Brand Identity Design",
+    "clientName": "StartupHub",
+    "color": "#8b5cf6",
+    "isActive": true
+  },
+  {
+    "id": "6",
+    "name": "Website Redesign",
+    "clientName": "Professional Services Ltd",
+    "color": "#06b6d4",
+    "isActive": false
+  },
+  {
+    "id": "7",
+    "name": "Data Analytics Dashboard",
+    "clientName": "Analytics Pro",
+    "color": "#ef4444",
+    "isActive": true
+  },
+  {
+    "id": "8",
+    "name": "Mobile Game Development",
+    "clientName": "GameStudio Interactive",
+    "color": "#84cc16",
+    "isActive": true
+  },
+  {
+    "id": "9",
+    "name": "HR Management System",
+    "clientName": "People First Corp",
+    "color": "#f97316",
+    "isActive": false
+  },
+  {
+    "id": "10",
+    "name": "Content Management System",
+    "clientName": "Media Solutions Inc",
+    "color": "#64748b",
+    "isActive": true
+  }
+]
