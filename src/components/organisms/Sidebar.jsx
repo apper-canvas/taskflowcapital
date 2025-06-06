@@ -23,6 +23,7 @@ function Sidebar({
 
 const navigationItems = [
     { path: '/clients', label: 'Clients', icon: 'Users' },
+    { path: '/projects', label: 'Projects', icon: 'FolderOpen' },
     { path: '/', label: 'Tasks', icon: 'CheckSquare' }
   ]
   return (
@@ -90,6 +91,7 @@ export function CollapsedSidebar({ setSidebarCollapsed }) {
 
 const navigationItems = [
     { path: '/clients', label: 'Clients', icon: 'Users' },
+    { path: '/projects', label: 'Projects', icon: 'FolderOpen' },
     { path: '/', label: 'Tasks', icon: 'CheckSquare' }
   ]
   return (
