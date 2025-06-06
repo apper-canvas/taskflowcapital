@@ -16,8 +16,7 @@ export default function HomePage() {
   const [projects, setProjects] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
-  const [view, setView] = useState('list') // 'list' or 'calendar'
-  const [selectedProject, setSelectedProject] = useState('all')
+const [view, setView] = useState('list') // 'list' or 'calendar'
   const [viewMode, setViewMode] = useState('list')
   const [selectedDate, setSelectedDate] = useState(new Date())
   const [currentCalendarDate, setCurrentCalendarDate] = useState(new Date())
@@ -84,11 +83,10 @@ const [selectedProjectData, setSelectedProjectData] = useState(null)
   }
 
 const filteredTasks = tasks?.filter(task => {
-    const matchesProject = selectedProject === 'all' || task.projectId === selectedProject
     const matchesSearch = !searchQuery ||
       task.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       task.description?.toLowerCase().includes(searchQuery.toLowerCase())
-    return matchesProject && matchesSearch
+    return matchesSearch
   }) || []
 
   const getProjectById = (id) => projects?.find(p => p.id === id) || { name: 'Unknown Project', color: '#6b7280' }

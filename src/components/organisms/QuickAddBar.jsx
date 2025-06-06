@@ -37,13 +37,6 @@ export default function QuickAddBar({
 </Button>
             <div className="flex items-center gap-2">
               <Button
-                onClick={() => openProjectModal()}
-                className="flex items-center gap-2 px-4 py-2 bg-secondary text-white rounded-lg hover:bg-secondary-dark"
-              >
-                <Icon name="FolderPlus" size={16} />
-                <Text as="span" className="hidden sm:inline">New Project</Text>
-              </Button>
-              <Button
                 onClick={() => openTaskModal()}
                 className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark"
               >

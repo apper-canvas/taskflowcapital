@@ -8,9 +8,9 @@ import ViewToggle from '@/components/molecules/ViewToggle'
 export default function MainHeader({ toggleSidebar, toggleDarkMode, darkMode, view, setView }) {
   const location = useLocation()
 
-  const navItems = [
-    { path: '/', label: 'Tasks', icon: 'CheckSquare' },
+const navItems = [
     { path: '/projects', label: 'Projects', icon: 'FolderOpen' },
+    { path: '/', label: 'Tasks', icon: 'CheckSquare' },
     { path: '/clients', label: 'Clients', icon: 'Users' }
   ]
 
