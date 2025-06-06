@@ -17,8 +17,23 @@ export default {
           DEFAULT: '#ec4899',
           light: '#f472b6',
           dark: '#db2777'
-        },
+},
         accent: '#f59e0b',
+        success: {
+          DEFAULT: '#22c55e',
+          light: '#4ade80',
+          dark: '#16a34a'
+        },
+        warning: {
+          DEFAULT: '#f59e0b',
+          light: '#fbbf24',
+          dark: '#d97706'
+        },
+        danger: {
+          DEFAULT: '#ef4444',
+          light: '#f87171',
+          dark: '#dc2626'
+        },
         surface: {
           50: '#f8fafc',
           100: '#f1f5f9',

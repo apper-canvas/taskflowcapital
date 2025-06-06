@@ -14,7 +14,11 @@ export default function FormField({
   required = false,
   as = 'input',
   rows,
-  className = ''
+  className = '',
+  min,
+  max,
+  step,
+  disabled = false
 }) {
   const renderControl = () => {
     if (as === 'select') {
@@ -37,7 +41,7 @@ export default function FormField({
           required={required}
         />
       )
-    } else {
+} else {
       return (
         <Input
           type={type}
@@ -45,6 +49,10 @@ export default function FormField({
           onChange={onChange}
           placeholder={placeholder}
           required={required}
+          min={min}
+          max={max}
+          step={step}
+          disabled={disabled}
           className={`w-full ${className}`}
         />
       )

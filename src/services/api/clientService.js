@@ -62,8 +62,28 @@ const clientService = {
     return clients.filter(client =>
       client.name.toLowerCase().includes(lowercaseQuery) ||
       client.email.toLowerCase().includes(lowercaseQuery) ||
-      client.company.toLowerCase().includes(lowercaseQuery)
+client.company.toLowerCase().includes(lowercaseQuery)
     ).map(c => ({ ...c }))
+  },
+
+  async getClientInvoices(clientId) {
+    await delay(200)
+    // This would be handled by invoiceService in real implementation
+    // Placeholder for client invoice integration
+    return []
+  },
+
+  async updateBillingInfo(id, billingData) {
+    await delay(300)
+    const index = clients.findIndex(c => c.id === id)
+    if (index === -1) throw new Error('Client not found')
+    
+    clients[index] = { 
+      ...clients[index], 
+      billing: { ...clients[index].billing, ...billingData },
+      lastContact: new Date().toISOString()
+    }
+    return { ...clients[index] }
   }
 }
 

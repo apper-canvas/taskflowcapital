@@ -11,6 +11,7 @@ export default function MainHeader({ toggleSidebar, toggleDarkMode, darkMode, vi
 const navItems = [
     { path: '/projects', label: 'Projects', icon: 'FolderOpen' },
     { path: '/', label: 'Tasks', icon: 'CheckSquare' },
+    { path: '/finance', label: 'Finance', icon: 'CreditCard' },
     { path: '/clients', label: 'Clients', icon: 'Users' }
   ]
 
