@@ -1,72 +1,169 @@
 [
   {
     "id": "1",
-    "name": "TechStart Mobile App",
-    "clientName": "TechStart Inc",
+    "name": "E-commerce Website",
+    "client": "TechCorp Inc.",
+    "description": "Complete overhaul of the company's e-commerce platform with modern UI/UX",
     "color": "#6366f1",
-    "isActive": true
+    "isActive": true,
+    "timeline": {
+      "startDate": "2024-01-15",
+      "endDate": "2024-04-15",
+      "duration": 90
+    },
+    "milestones": [
+      {
+        "id": "m1",
+        "name": "Design System Creation",
+        "description": "Create comprehensive design system and component library",
+        "dueDate": "2024-02-01",
+        "completed": true
+      },
+      {
+        "id": "m2",
+        "name": "Frontend Development",
+        "description": "Implement responsive frontend with React and Tailwind CSS",
+        "dueDate": "2024-03-15",
+        "completed": false
+      },
+      {
+        "id": "m3",
+        "name": "Backend Integration",
+        "description": "Connect frontend with existing backend APIs",
+        "dueDate": "2024-04-01",
+        "completed": false
+      }
+    ],
+    "attachments": [
+      {
+        "id": "a1",
+        "name": "Project_Requirements.pdf",
+        "size": 2048576,
+        "type": "application/pdf",
+        "uploadDate": "2024-01-10T10:00:00Z"
+      },
+      {
+        "id": "a2",
+        "name": "Design_Mockups.zip",
+        "size": 15728640,
+        "type": "application/zip",
+        "uploadDate": "2024-01-12T14:30:00Z"
+      }
+    ]
   },
   {
     "id": "2",
-    "name": "Marketing Campaign",
-    "clientName": "Digital Solutions Co",
+    "name": "Mobile App Development",
+    "client": "StartupXYZ",
+    "description": "Native iOS and Android app for food delivery service",
     "color": "#ec4899",
-    "isActive": true
+    "isActive": true,
+    "timeline": {
+      "startDate": "2024-02-01",
+      "endDate": "2024-06-01",
+      "duration": 120
+    },
+    "milestones": [
+      {
+        "id": "m4",
+        "name": "MVP Features",
+        "description": "Core app functionality including user registration and ordering",
+        "dueDate": "2024-03-15",
+        "completed": false
+      },
+      {
+        "id": "m5",
+        "name": "Payment Integration",
+        "description": "Integrate payment gateway and wallet functionality",
+        "dueDate": "2024-04-30",
+        "completed": false
+      }
+    ],
+    "attachments": [
+      {
+        "id": "a3",
+        "name": "App_Wireframes.pdf",
+        "size": 3145728,
+        "type": "application/pdf",
+        "uploadDate": "2024-01-25T09:00:00Z"
+      }
+    ]
   },
   {
     "id": "3",
-    "name": "API Development",
-    "clientName": "CloudTech Systems",
-    "color": "#10b981",
-    "isActive": true
+    "name": "Brand Identity Design",
+    "client": "Creative Agency",
+    "description": "Complete brand redesign including logo, color palette, and marketing materials",
+    "color": "#f59e0b",
+    "isActive": true,
+    "timeline": {
+      "startDate": "2024-01-20",
+      "endDate": "2024-03-20",
+      "duration": 59
+    },
+    "milestones": [
+      {
+        "id": "m6",
+        "name": "Logo Design",
+        "description": "Create new logo concepts and finalize design",
+        "dueDate": "2024-02-05",
+        "completed": true
+      }
+    ],
+    "attachments": []
   },
   {
     "id": "4",
-    "name": "E-commerce Platform",
-    "clientName": "Retail Innovations",
-    "color": "#f59e0b",
-    "isActive": true
+    "name": "Data Analytics Dashboard",
+    "client": "FinanceFlow",
+    "description": "Real-time analytics dashboard for financial data visualization",
+    "color": "#10b981",
+    "isActive": false,
+    "timeline": {
+      "startDate": "2023-11-01",
+      "endDate": "2024-01-31",
+      "duration": 91
+    },
+    "milestones": [
+      {
+        "id": "m7",
+        "name": "Dashboard Completion",
+        "description": "Complete dashboard with all required charts and metrics",
+        "dueDate": "2024-01-31",
+        "completed": true
+      }
+    ],
+    "attachments": [
+      {
+        "id": "a4",
+        "name": "Final_Dashboard_Screenshots.pdf",
+        "size": 5242880,
+        "type": "application/pdf",
+        "uploadDate": "2024-01-31T16:00:00Z"
+      }
+    ]
   },
   {
     "id": "5",
-    "name": "Brand Identity Design",
-    "clientName": "StartupHub",
-    "color": "#8b5cf6",
-    "isActive": true
-  },
-  {
-    "id": "6",
-    "name": "Website Redesign",
-    "clientName": "Professional Services Ltd",
-    "color": "#06b6d4",
-    "isActive": false
-  },
-  {
-    "id": "7",
-    "name": "Data Analytics Dashboard",
-    "clientName": "Analytics Pro",
-    "color": "#ef4444",
-    "isActive": true
-  },
-  {
-    "id": "8",
-    "name": "Mobile Game Development",
-    "clientName": "GameStudio Interactive",
-    "color": "#84cc16",
-    "isActive": true
-  },
-  {
-    "id": "9",
-    "name": "HR Management System",
-    "clientName": "People First Corp",
-    "color": "#f97316",
-    "isActive": false
-  },
-  {
-    "id": "10",
     "name": "Content Management System",
-    "clientName": "Media Solutions Inc",
-    "color": "#64748b",
-    "isActive": true
+    "client": "BloggerPro",
+    "description": "Custom CMS for content creators with advanced publishing features",
+    "color": "#8b5cf6",
+    "isActive": true,
+    "timeline": {
+      "startDate": "2024-02-15",
+      "endDate": "2024-05-15",
+      "duration": 89
+    },
+    "milestones": [
+      {
+        "id": "m8",
+        "name": "Content Editor",
+        "description": "Rich text editor with media upload capabilities",
+        "dueDate": "2024-03-30",
+        "completed": false
+      }
+],
+    "attachments": []
   }
 ]
