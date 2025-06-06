@@ -214,9 +214,7 @@ export default function MainSidebar({
     </>
   )
 }
-
 // Additional collapsed state component
-export { CollapsedSidebar }
 
 // Re-export for backwards compatibility
 export { Sidebar }
