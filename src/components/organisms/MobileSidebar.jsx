@@ -5,9 +5,7 @@ import Icon from '@/components/atoms/Icon'
 import Text from '@/components/atoms/Text'
 import Input from '@/components/atoms/Input'
 import Button from '@/components/atoms/Button'
-import SidebarQuickStat from '@/components/molecules/SidebarQuickStat'
 import ProjectFilter from '@/components/organisms/ProjectFilter'
-
 export default function MobileSidebar({
   sidebarCollapsed,
   setSidebarCollapsed,
@@ -88,36 +86,7 @@ const navigationItems = [
               className="pl-10 w-full"
             />
           </div>
-        </div>
-
-        {/* Quick Stats - only show on tasks page */}
-        {currentPage !== 'clients' && (
-          <div className="p-4 border-b border-surface-200 dark:border-surface-700">
-            <Text as="h3" className="text-sm font-medium text-surface-700 dark:text-surface-300 mb-3">
-              Quick Stats
-            </Text>
-            <div className="space-y-2">
-              <SidebarQuickStat
-                icon="AlertTriangle"
-                label="Urgent Tasks"
-                count={urgentTasks?.length || 0}
-                color="text-red-600"
-              />
-              <SidebarQuickStat
-                icon="Calendar"
-                label="Due Today"
-                count={todayTasks?.length || 0}
-                color="text-blue-600"
-              />
-              <SidebarQuickStat
-                icon="CheckCircle"
-                label="Total Tasks"
-                count={tasks?.length || 0}
-                color="text-green-600"
-              />
-            </div>
-          </div>
-        )}
+</div>
 
         {/* Project Filter - only show on tasks page */}
         {currentPage !== 'clients' && (
@@ -130,7 +99,6 @@ const navigationItems = [
             />
           </div>
         )}
-
         {/* Footer */}
         <div className="p-4 border-t border-surface-200 dark:border-surface-700">
           <Button
