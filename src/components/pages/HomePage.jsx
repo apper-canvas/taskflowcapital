@@ -3,8 +3,6 @@ import { toast } from 'react-toastify'
 import { format, isPast, isToday } from 'date-fns'
 import { motion, AnimatePresence } from 'framer-motion'
 import MainHeader from '@/components/organisms/MainHeader'
-import Sidebar from '@/components/organisms/Sidebar'
-import MobileSidebar from '@/components/organisms/MobileSidebar'
 import QuickAddBar from '@/components/organisms/QuickAddBar'
 import TaskDetailModal from '@/components/organisms/TaskDetailModal'
 import ProjectDetailModal from '@/components/organisms/ProjectDetailModal'
@@ -26,13 +24,9 @@ export default function HomePage() {
   const [showTaskModal, setShowTaskModal] = useState(false)
   const [showProjectModal, setShowProjectModal] = useState(false)
   const [selectedTask, setSelectedTask] = useState(null)
-  const [selectedProjectData, setSelectedProjectData] = useState(null)
+const [selectedProjectData, setSelectedProjectData] = useState(null)
   const [showQuickAdd, setShowQuickAdd] = useState(false)
-  const [sidebarOpen, setSidebarOpen] = useState(false)
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
-  const [searchTerm, setSearchTerm] = useState('')
   const [searchQuery, setSearchQuery] = useState('')
-  const [selectedProjectId, setSelectedProjectId] = useState('')
   const [quickAddData, setQuickAddData] = useState({
     title: '',
     projectId: '',
@@ -306,48 +300,18 @@ if (loading) {
     )
   }
 
-  return (
+return (
     <div className="min-h-screen bg-surface-50 dark:bg-surface-900">
       <MainHeader
-        toggleSidebar={() => setSidebarCollapsed(!sidebarCollapsed)}
         toggleDarkMode={toggleDarkMode}
         darkMode={darkMode}
         view={view}
         setView={setView}
       />
 
-      <div className="flex h-[calc(100vh-4rem)]">
-        <Sidebar
-          sidebarCollapsed={sidebarCollapsed}
-          setSidebarCollapsed={setSidebarCollapsed}
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-          urgentTasks={urgentTasks}
-          todayTasks={todayTasks}
-          projects={projects}
-          tasks={tasks}
-          selectedProject={selectedProject}
-          setSelectedProject={setSelectedProject}
-        />
+      <div className="h-[calc(100vh-4rem)]">
 
-        <AnimatePresence>
-          {!sidebarCollapsed && (
-            <MobileSidebar
-              sidebarCollapsed={sidebarCollapsed}
-              setSidebarCollapsed={setSidebarCollapsed}
-              searchQuery={searchQuery}
-              setSearchQuery={setSearchQuery}
-              urgentTasks={urgentTasks}
-              todayTasks={todayTasks}
-              projects={projects}
-              tasks={tasks}
-              selectedProject={selectedProject}
-              setSelectedProject={setSelectedProject}
-            />
-          )}
-        </AnimatePresence>
-
-        <main className="flex-1 overflow-hidden flex flex-col">
+<main className="w-full overflow-hidden flex flex-col">
           <QuickAddBar
             showQuickAdd={showQuickAdd}
             setShowQuickAdd={setShowQuickAdd}

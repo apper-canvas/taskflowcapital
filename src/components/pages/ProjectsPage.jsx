@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { toast } from 'react-toastify'
 import { motion, AnimatePresence } from 'framer-motion'
 import MainHeader from '../organisms/MainHeader'
-import Sidebar from '../organisms/Sidebar'
-import MobileSidebar from '../organisms/MobileSidebar'
 import ProjectDetailModal from '../organisms/ProjectDetailModal'
 import TimerWidget from '../organisms/TimerWidget'
 import Card from '../atoms/Card'
@@ -13,7 +11,6 @@ import Icon from '../atoms/Icon'
 import Badge from '../atoms/Badge'
 import ProjectDot from '../atoms/ProjectDot'
 import { projectService, taskService } from '../../services'
-
 export default function ProjectsPage() {
   const [darkMode, setDarkMode] = useState(false)
   const [projects, setProjects] = useState([])
@@ -21,11 +18,8 @@ export default function ProjectsPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [showProjectModal, setShowProjectModal] = useState(false)
-  const [selectedProject, setSelectedProject] = useState(null)
-  const [sidebarOpen, setSidebarOpen] = useState(false)
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
+const [selectedProject, setSelectedProject] = useState(null)
   const [searchQuery, setSearchQuery] = useState('')
-
   useEffect(() => {
     const isDark = localStorage.getItem('darkMode') === 'true'
     setDarkMode(isDark)
@@ -144,50 +138,18 @@ export default function ProjectsPage() {
     )
   }
 
-  return (
+return (
     <div className="min-h-screen bg-surface-50 dark:bg-surface-900">
       <MainHeader
-        toggleSidebar={() => setSidebarCollapsed(!sidebarCollapsed)}
         toggleDarkMode={toggleDarkMode}
         darkMode={darkMode}
         view="list"
         setView={() => {}}
       />
 
-      <div className="flex h-[calc(100vh-4rem)]">
-        <Sidebar
-          sidebarCollapsed={sidebarCollapsed}
-          setSidebarCollapsed={setSidebarCollapsed}
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-          urgentTasks={[]}
-          todayTasks={[]}
-          projects={projects}
-          tasks={tasks}
-          selectedProject="all"
-          setSelectedProject={() => {}}
-          currentPage="projects"
-        />
+      <div className="h-[calc(100vh-4rem)]">
 
-        <AnimatePresence>
-          {!sidebarCollapsed && (
-            <MobileSidebar
-              sidebarCollapsed={sidebarCollapsed}
-              setSidebarCollapsed={setSidebarCollapsed}
-              searchQuery={searchQuery}
-              setSearchQuery={setSearchQuery}
-              urgentTasks={[]}
-              todayTasks={[]}
-              projects={projects}
-              tasks={tasks}
-              selectedProject="all"
-              setSelectedProject={() => {}}
-              currentPage="projects"
-            />
-          )}
-        </AnimatePresence>
-
-        <main className="flex-1 overflow-hidden flex flex-col">
+<main className="w-full overflow-hidden flex flex-col">
           <div className="p-6 border-b border-surface-200 dark:border-surface-700 bg-white dark:bg-surface-800">
             <div className="flex items-center justify-between">
               <div>

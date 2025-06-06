@@ -3,8 +3,6 @@ import { toast } from 'react-toastify'
 import { motion, AnimatePresence } from 'framer-motion'
 import { format } from 'date-fns'
 import MainHeader from '@/components/organisms/MainHeader'
-import Sidebar from '@/components/organisms/Sidebar'
-import MobileSidebar from '@/components/organisms/MobileSidebar'
 import ClientDetailModal from '@/components/organisms/ClientDetailModal'
 import Button from '@/components/atoms/Button'
 import Icon from '@/components/atoms/Icon'
@@ -21,9 +19,8 @@ export default function ClientsPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [searchQuery, setSearchQuery] = useState('')
-  const [showClientModal, setShowClientModal] = useState(false)
+const [showClientModal, setShowClientModal] = useState(false)
   const [selectedClient, setSelectedClient] = useState(null)
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
 
   useEffect(() => {
     const isDark = localStorage.getItem('darkMode') === 'true'
@@ -132,38 +129,16 @@ export default function ClientsPage() {
     )
   }
 
-  return (
+return (
     <div className="min-h-screen bg-surface-50 dark:bg-surface-900">
       <MainHeader
-        toggleSidebar={() => setSidebarCollapsed(!sidebarCollapsed)}
         toggleDarkMode={toggleDarkMode}
         darkMode={darkMode}
       />
 
-      <div className="flex h-[calc(100vh-4rem)]">
-        <Sidebar
-          sidebarCollapsed={sidebarCollapsed}
-          setSidebarCollapsed={setSidebarCollapsed}
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-          projects={projects}
-          currentPage="clients"
-        />
+      <div className="h-[calc(100vh-4rem)]">
 
-        <AnimatePresence>
-          {!sidebarCollapsed && (
-            <MobileSidebar
-              sidebarCollapsed={sidebarCollapsed}
-              setSidebarCollapsed={setSidebarCollapsed}
-              searchQuery={searchQuery}
-              setSearchQuery={setSearchQuery}
-              projects={projects}
-              currentPage="clients"
-            />
-          )}
-        </AnimatePresence>
-
-        <main className="flex-1 overflow-hidden">
+<main className="w-full overflow-hidden">
           <div className="h-full flex flex-col">
             {/* Header */}
             <div className="p-6 border-b border-surface-200 dark:border-surface-700">
