@@ -1,0 +1,78 @@
+[
+  {
+    "id": "client-1",
+    "name": "Sarah Johnson",
+    "email": "sarah@techstartup.com",
+    "phone": "+1 (555) 123-4567",
+    "company": "TechStartup Inc.",
+    "address": {
+      "street": "123 Innovation Drive",
+      "city": "San Francisco",
+      "state": "CA",
+      "zipCode": "94105",
+      "country": "USA"
+    },
+    "isActive": true,
+    "projectIds": ["1", "2"],
+    "notes": "Primary contact for all technical projects. Prefers email communication.",
+    "dateAdded": "2024-01-15T10:00:00.000Z",
+    "lastContact": "2024-01-20T14:30:00.000Z"
+  },
+  {
+    "id": "client-2",
+    "name": "Michael Chen",
+    "email": "m.chen@globalcorp.com",
+    "phone": "+1 (555) 987-6543",
+    "company": "Global Corporation",
+    "address": {
+      "street": "456 Business Plaza",
+      "city": "New York",
+      "state": "NY",
+      "zipCode": "10001",
+      "country": "USA"
+    },
+    "isActive": true,
+    "projectIds": ["3"],
+    "notes": "Enterprise client with multiple departments. Requires detailed reporting.",
+    "dateAdded": "2024-01-10T09:15:00.000Z",
+    "lastContact": "2024-01-18T11:45:00.000Z"
+  },
+  {
+    "id": "client-3",
+    "name": "Emily Rodriguez",
+    "email": "emily@designstudio.com",
+    "phone": "+1 (555) 456-7890",
+    "company": "Creative Design Studio",
+    "address": {
+      "street": "789 Art Street",
+      "city": "Los Angeles",
+      "state": "CA",
+      "zipCode": "90210",
+      "country": "USA"
+    },
+    "isActive": true,
+    "projectIds": [],
+    "notes": "Creative director focused on branding and UI/UX projects.",
+    "dateAdded": "2024-01-05T16:20:00.000Z",
+    "lastContact": "2024-01-15T13:10:00.000Z"
+  },
+  {
+    "id": "client-4",
+    "name": "David Thompson",
+    "email": "david@localshop.com",
+    "phone": "+1 (555) 321-0987",
+    "company": "Local Shop Network",
+    "address": {
+      "street": "321 Main Street",
+      "city": "Chicago",
+      "state": "IL",
+      "zipCode": "60601",
+      "country": "USA"
+    },
+    "isActive": false,
+    "projectIds": [],
+    "notes": "Small business owner. Project completed last year.",
+    "dateAdded": "2023-12-01T08:30:00.000Z",
+    "lastContact": "2023-12-15T10:00:00.000Z"
+  }
+]
