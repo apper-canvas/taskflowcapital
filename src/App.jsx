@@ -3,14 +3,16 @@ import { Routes, Route } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import HomePage from './components/pages/HomePage'
+import ProjectsPage from './components/pages/ProjectsPage'
 import ClientsPage from './components/pages/ClientsPage'
 import NotFound from './pages/NotFound'
 
 function App() {
   return (
     <div className="App">
-      <Routes>
+<Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/projects" element={<ProjectsPage />} />
         <Route path="/clients" element={<ClientsPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
