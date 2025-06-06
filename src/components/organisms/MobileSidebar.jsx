@@ -25,7 +25,6 @@ export default function MobileSidebar({
 
 const navigationItems = [
     { path: '/clients', label: 'Clients', icon: 'Users' },
-    { path: '/projects', label: 'Projects', icon: 'FolderOpen' },
     { path: '/', label: 'Tasks', icon: 'CheckSquare' }
   ]
   return (
