@@ -243,11 +243,11 @@ export default function ProjectsPage() {
                         <div className="flex items-center gap-3">
                           <ProjectDot color={project.color} size="lg" />
                           <div>
-                            <Text as="h3" className="font-medium text-surface-900 dark:text-white">
-                              {project.name}
+<Text as="h3" className="font-medium text-surface-900 dark:text-white">
+                              {project.name || 'Untitled Project'}
                             </Text>
                             <Badge className={getStatusColor(project.status)}>
-                              {project.status.replace('-', ' ')}
+                              {project.status ? project.status.replace('-', ' ') : 'unknown'}
                             </Badge>
                           </div>
                         </div>
