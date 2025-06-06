@@ -5,15 +5,17 @@ import 'react-toastify/dist/ReactToastify.css'
 import HomePage from './components/pages/HomePage'
 import ProjectsPage from './components/pages/ProjectsPage'
 import ClientsPage from './components/pages/ClientsPage'
+import FinancePage from './components/pages/FinancePage'
 import NotFound from './pages/NotFound'
 
 function App() {
   return (
     <div className="App">
-<Routes>
+      <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/projects" element={<ProjectsPage />} />
         <Route path="/clients" element={<ClientsPage />} />
+        <Route path="/finance" element={<FinancePage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       
