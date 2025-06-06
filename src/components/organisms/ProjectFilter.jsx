@@ -73,14 +73,13 @@ export default function ProjectFilter({
     return selectedProjects.includes(projectId) ? 'checked' : 'unchecked'
   }
 
-  if (variant === 'dropdown') {
+if (variant === 'dropdown') {
     return (
       <ProjectFilterDropdown
         projects={projects}
         tasks={tasks}
         selectedProjects={currentSelection}
         setSelectedProjects={handleSelectionChange}
-        multiSelect={isMultiSelect}
         className="mb-6"
       />
     )
@@ -107,14 +106,15 @@ export default function ProjectFilter({
             onClick={handleSelectAll}
             className="flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer transition-colors hover:bg-surface-100 dark:hover:bg-surface-700"
           >
-            <div className="relative">
+<div className="relative">
               <input
                 type="checkbox"
                 checked={getCheckboxState() === 'checked'}
                 onChange={() => {}}
-                className={`checkbox-custom ${
+                className={`checkbox-custom pointer-events-none ${
                   getCheckboxState() === 'indeterminate' ? 'checkbox-indeterminate' : ''
                 }`}
+                readOnly
               />
             </div>
             <Text className="text-sm font-medium flex-1 text-surface-700 dark:text-surface-300">
@@ -147,7 +147,7 @@ export default function ProjectFilter({
             ? selectedProjects.includes(project.id)
             : selectedProject === project.id
           
-          return (
+return (
             <div
               key={project.id}
               onClick={() => handleProjectToggle(project.id)}
@@ -163,7 +163,8 @@ export default function ProjectFilter({
                     type="checkbox"
                     checked={getCheckboxState(project.id) === 'checked'}
                     onChange={() => {}}
-                    className="checkbox-custom"
+                    className="checkbox-custom pointer-events-none"
+                    readOnly
                   />
                 </div>
               ) : (

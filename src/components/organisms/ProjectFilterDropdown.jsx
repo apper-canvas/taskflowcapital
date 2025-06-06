@@ -39,21 +39,30 @@ export default function ProjectFilterDropdown({
 
   const getAllTasksCount = () => tasks?.length || 0
 
-  // Handle project selection
-  const handleProjectToggle = (projectId) => {
+// Handle project selection with improved state management
+  const handleProjectToggle = (projectId, event) => {
+    // Prevent event bubbling if needed
+    if (event) {
+      event.preventDefault()
+      event.stopPropagation()
+    }
+
     if (projectId === 'all') {
       setSelectedProjects(['all'])
     } else {
+      // Remove 'all' from selection when selecting specific projects
       const currentSelected = selectedProjects.filter(id => id !== 'all')
+      
       if (currentSelected.includes(projectId)) {
+        // Remove project from selection
         const newSelected = currentSelected.filter(id => id !== projectId)
         setSelectedProjects(newSelected.length === 0 ? ['all'] : newSelected)
       } else {
+        // Add project to selection
         setSelectedProjects([...currentSelected, projectId])
       }
     }
   }
-
   // Clear all selections
   const handleClearAll = () => {
     setSelectedProjects(['all'])
@@ -147,17 +156,17 @@ export default function ProjectFilterDropdown({
 
           {/* Project List */}
           <div className="max-h-48 overflow-y-auto">
-            {/* All Projects Option */}
-            <button
-              onClick={() => handleProjectToggle('all')}
-              className={`w-full flex items-center gap-3 px-3 py-2.5 hover:bg-surface-50 dark:hover:bg-surface-700 transition-colors ${
+{/* All Projects Option */}
+            <div
+              onClick={(e) => handleProjectToggle('all', e)}
+              className={`w-full flex items-center gap-3 px-3 py-2.5 hover:bg-surface-50 dark:hover:bg-surface-700 transition-colors cursor-pointer ${
                 selectedProjects.includes('all') ? 'bg-primary/5 dark:bg-primary/10' : ''
               }`}
             >
-              <div className={`w-4 h-4 rounded border-2 flex items-center justify-center ${
+              <div className={`w-4 h-4 rounded border-2 flex items-center justify-center transition-all ${
                 selectedProjects.includes('all')
                   ? 'bg-primary border-primary'
-                  : 'border-surface-300 dark:border-surface-600'
+                  : 'border-surface-300 dark:border-surface-600 hover:border-primary/60'
               }`}>
                 {selectedProjects.includes('all') && (
                   <Icon name="Check" size={12} className="text-white" />
@@ -165,32 +174,36 @@ export default function ProjectFilterDropdown({
               </div>
               <ProjectDot color="bg-surface-400" />
               <div className="flex-1 text-left">
-                <Text className="text-sm font-medium text-surface-900 dark:text-white">
+                <Text className={`text-sm font-medium transition-colors ${
+                  selectedProjects.includes('all') 
+                    ? 'text-primary dark:text-primary-light' 
+                    : 'text-surface-900 dark:text-white'
+                }`}>
                   All Projects
                 </Text>
               </div>
               <Text className="text-xs text-surface-500 dark:text-surface-400">
                 {getAllTasksCount()}
               </Text>
-            </button>
+            </div>
 
             {/* Individual Projects */}
             {filteredProjects.map(project => {
               const isSelected = selectedProjects.includes(project.id)
               const taskCount = getProjectTaskCount(project.id)
               
-              return (
-                <button
+return (
+                <div
                   key={project.id}
-                  onClick={() => handleProjectToggle(project.id)}
-                  className={`w-full flex items-center gap-3 px-3 py-2.5 hover:bg-surface-50 dark:hover:bg-surface-700 transition-colors ${
+                  onClick={(e) => handleProjectToggle(project.id, e)}
+                  className={`w-full flex items-center gap-3 px-3 py-2.5 hover:bg-surface-50 dark:hover:bg-surface-700 transition-colors cursor-pointer ${
                     isSelected ? 'bg-primary/5 dark:bg-primary/10' : ''
                   }`}
                 >
-                  <div className={`w-4 h-4 rounded border-2 flex items-center justify-center ${
+                  <div className={`w-4 h-4 rounded border-2 flex items-center justify-center transition-all ${
                     isSelected
                       ? 'bg-primary border-primary'
-                      : 'border-surface-300 dark:border-surface-600'
+                      : 'border-surface-300 dark:border-surface-600 hover:border-primary/60'
                   }`}>
                     {isSelected && (
                       <Icon name="Check" size={12} className="text-white" />
@@ -198,14 +211,18 @@ export default function ProjectFilterDropdown({
                   </div>
                   <ProjectDot color={project.color} />
                   <div className="flex-1 text-left">
-                    <Text className="text-sm font-medium text-surface-900 dark:text-white">
+                    <Text className={`text-sm font-medium transition-colors ${
+                      isSelected 
+                        ? 'text-primary dark:text-primary-light' 
+                        : 'text-surface-900 dark:text-white'
+                    }`}>
                       {project.name}
                     </Text>
                   </div>
                   <Text className="text-xs text-surface-500 dark:text-surface-400">
                     {taskCount}
                   </Text>
-                </button>
+                </div>
               )
             })}
 

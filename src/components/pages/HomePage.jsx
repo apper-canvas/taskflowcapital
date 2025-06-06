@@ -355,16 +355,15 @@ return (
 />
 
           <div className="flex-1 overflow-y-auto">
-            {/* Project Filter */}
+{/* Project Filter */}
             <div className="px-4 lg:px-6 pt-6">
               <ProjectFilter
                 projects={projects}
                 tasks={tasks}
-                selectedProject={selectedProjects.includes('all') ? 'all' : selectedProjects[0]}
-                setSelectedProject={(projectId) => {
-                  setSelectedProjects(projectId === 'all' ? ['all'] : [projectId])
-                }}
+                selectedProjects={selectedProjects}
+                setSelectedProjects={setSelectedProjects}
                 variant="dropdown"
+                multiSelect={true}
               />
             </div>
 
