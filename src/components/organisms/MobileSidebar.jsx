@@ -25,11 +25,10 @@ export default function MobileSidebar({
 
   if (sidebarCollapsed) return null
 
-  const navigationItems = [
-    { path: '/', label: 'Tasks', icon: 'CheckSquare' },
-    { path: '/clients', label: 'Clients', icon: 'Users' }
+const navigationItems = [
+    { path: '/clients', label: 'Clients', icon: 'Users' },
+    { path: '/', label: 'Tasks', icon: 'CheckSquare' }
   ]
-
   return (
     <>
       {/* Overlay */}

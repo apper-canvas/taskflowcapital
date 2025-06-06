@@ -23,11 +23,10 @@ function Sidebar({
 }) {
   const location = useLocation()
 
-  const navigationItems = [
-    { path: '/', label: 'Tasks', icon: 'CheckSquare' },
-    { path: '/clients', label: 'Clients', icon: 'Users' }
+const navigationItems = [
+    { path: '/clients', label: 'Clients', icon: 'Users' },
+    { path: '/', label: 'Tasks', icon: 'CheckSquare' }
   ]
-
   return (
     <AnimatePresence>
       {!sidebarCollapsed && (
@@ -140,11 +139,10 @@ function Sidebar({
 export function CollapsedSidebar({ setSidebarCollapsed }) {
   const location = useLocation()
 
-  const navigationItems = [
-    { path: '/', label: 'Tasks', icon: 'CheckSquare' },
-    { path: '/clients', label: 'Clients', icon: 'Users' }
+const navigationItems = [
+    { path: '/clients', label: 'Clients', icon: 'Users' },
+    { path: '/', label: 'Tasks', icon: 'CheckSquare' }
   ]
-
   return (
     <motion.aside
       initial={{ opacity: 0 }}
