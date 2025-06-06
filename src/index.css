@@ -21,6 +21,17 @@ body {
   line-height: 1.6;
 }
 
+/* Ensure main content doesn't overlap header */
+main {
+  min-height: calc(100vh - 4rem);
+}
+
+/* Page container padding to account for sticky header */
+.page-container {
+  padding-top: 1rem;
+  min-height: calc(100vh - 4rem);
+}
+
 .glassmorphism {
   background: rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(10px);
