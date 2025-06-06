@@ -5,9 +5,9 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   darkMode: 'class',
-  theme: {
+theme: {
     extend: {
-colors: {
+      colors: {
         primary: {
           DEFAULT: '#6366f1',
           light: '#818cf8',

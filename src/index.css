@@ -37,9 +37,35 @@ main {
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.18);
 }
-
 .glassmorphism-dark {
   background: rgba(30, 41, 59, 0.4);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Custom checkbox styles */
+.checkbox-custom {
+  @apply relative w-4 h-4 rounded border-2 border-surface-300 dark:border-surface-600 bg-white dark:bg-surface-800 cursor-pointer transition-all duration-200;
+}
+
+.checkbox-custom:checked {
+  @apply bg-primary border-primary;
+}
+
+.checkbox-custom:checked::after {
+  content: '✓';
+  @apply absolute inset-0 flex items-center justify-center text-white text-xs font-bold;
+}
+
+.checkbox-custom:hover {
+  @apply border-primary/60;
+}
+
+.checkbox-indeterminate {
+  @apply bg-primary/20 border-primary;
+}
+
+.checkbox-indeterminate::after {
+  content: '−';
+  @apply absolute inset-0 flex items-center justify-center text-primary text-xs font-bold;
 }
