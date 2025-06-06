@@ -11,8 +11,7 @@ import ProjectDetailModal from '@/components/organisms/ProjectDetailModal'
 import TimerWidget from '@/components/organisms/TimerWidget'
 import ListTemplate from '@/components/templates/ListTemplate'
 import CalendarTemplate from '@/components/templates/CalendarTemplate'
-import taskService from '@/services/taskService'
-import projectService from '@/services/projectService'
+import { taskService, projectService } from '@/services'
 export default function HomePage() {
   const [darkMode, setDarkMode] = useState(false)
   const [tasks, setTasks] = useState([])
